@@ -21,8 +21,20 @@ public class UserRepositoryImpl implements UserRepository {
     @Transactional
     @Override
     public List<User> getUserList() {
-        Query query = entityManager.createQuery("select user from User user", User.class);
-        List<User> users = query.getResultList();
+        Query query = entityManager.createQuery("select user.id, user.address, user.email, user.firstName, user.lastName, user.password, user.phoneNumber from User user", Tuple.class);
+        List<Tuple> tuples = query.getResultList();
+        List<User> users = new ArrayList<>();
+        for (Tuple tuple : tuples) {
+            User user = new User();
+            user.setId((Long) tuple.get(0));
+            user.setAddress((String) tuple.get(1));
+            user.setEmail((String) tuple.get(2));
+            user.setFirstName((String) tuple.get(3));
+            user.setLastName((String) tuple.get(4));
+            user.setPassword((String) tuple.get(5));
+            user.setPhoneNumber((String) tuple.get(6));
+            users.add(user);
+        }
         return users;
     }
 
