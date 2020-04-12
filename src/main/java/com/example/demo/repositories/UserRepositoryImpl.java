@@ -233,9 +233,6 @@ public class UserRepositoryImpl implements UserRepository {
     @Transactional
     public List<IssueBookRequest> getIssueBooks() {
         List<IssueBookRequest> resultList = entityManager.createQuery("select books from IssueBookRequest books", IssueBookRequest.class).getResultList();
-        for (IssueBookRequest issueBookRequest : resultList) {
-            entityManager.merge(issueBookRequest);
-        }
         return resultList;
     }
 
@@ -244,9 +241,6 @@ public class UserRepositoryImpl implements UserRepository {
         Query query = entityManager.createQuery(" select ib from IssueBookRequest  ib where ib.client.id = :id", IssueBookRequest.class);
         query.setParameter("id", request.getId());
         List<IssueBookRequest> books = query.getResultList();
-        for (IssueBookRequest book : books) {
-            entityManager.merge(book);
-        }
         return books;
     }
 

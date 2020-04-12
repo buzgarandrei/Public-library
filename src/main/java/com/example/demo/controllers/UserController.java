@@ -22,7 +22,6 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
-@Transactional
 public class UserController {
 
     @Autowired
@@ -118,13 +117,21 @@ public class UserController {
     public List<IssueBookRequest> getIssueBooks(HttpServletRequest request) {
         boolean validated = authenticationService.validateTokenAndRole(request, RoleEnum.LIBRARIAN);
         if(validated == false) return null;
-        return userRepository.getIssueBooks();
+        List<IssueBookRequest> list= userRepository.getIssueBooks();
+        for (IssueBookRequest book : list) {
+            book.setClient(null);
+        }
+        return list;
     }
 
     @RequestMapping(value = "getIssueHistory")
     public List<IssueBookRequest> getIssueHistory (@RequestBody RequestWithId request) {
 
-        return userRepository.getIssueHistory(request);
+        List<IssueBookRequest> list = userRepository.getIssueHistory(request);
+        for (IssueBookRequest book : list) {
+            book.setClient(null);
+        }
+        return list;
     }
 
     @RequestMapping(value = "getActiveLoans")

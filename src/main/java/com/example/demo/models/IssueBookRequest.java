@@ -17,8 +17,8 @@ public class IssueBookRequest {
     @Column
     private String author;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id_client", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_client", nullable = true)
     private Client client;
 
     public Long getId() {
