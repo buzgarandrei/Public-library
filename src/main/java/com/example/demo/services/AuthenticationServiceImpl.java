@@ -20,7 +20,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public StateResponse registerLogin(LoginResponse response) {
         StateResponse stateResponse = new StateResponse();
-        if(response == null || response.getToken() == null || response.getId() == null | response.getEmail() == null || response.getRole() == null) {
+        if(response == null || response.getToken() == null || response.getId() == null || response.getEmail() == null || response.getRole() == null) {
             stateResponse.setSuccess(false);
             return stateResponse;
         }

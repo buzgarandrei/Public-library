@@ -34,9 +34,8 @@ public class UserController {
     public List<User> getUserList(HttpServletRequest request) {
         boolean validated = authenticationService.validateTokenAndRole(request, RoleEnum.CLIENT);
         if(validated == false) return null;
-        List<User> users = userRepository.getUserList();
 
-        return users;
+        return userRepository.getUserList();
     }
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
@@ -125,8 +124,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "getIssueHistory")
-    public List<IssueBookRequest> getIssueHistory (@RequestBody RequestWithId request) {
-
+    public List<IssueBookRequest> getIssueHistory (HttpServletRequest httpServletRequest, @RequestBody RequestWithId request) {
+        boolean validated = authenticationService.validateTokenAndRole(httpServletRequest, null);
+        if(validated == false) return null;
         List<IssueBookRequest> list = userRepository.getIssueHistory(request);
         for (IssueBookRequest book : list) {
             book.setClient(null);
@@ -135,7 +135,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "getActiveLoans")
-    public List<Appointment> getActiveLoans(@RequestBody RequestWithId request) throws ParseException {
-        return userRepository.getActiveLoans(request);
+    public List<Appointment> getActiveLoans(HttpServletRequest request, @RequestBody RequestWithId id) throws ParseException {
+        boolean validated = authenticationService.validateTokenAndRole(request, null);
+        if(validated == false) return null;
+        return userRepository.getActiveLoans(id);
     }
 }
