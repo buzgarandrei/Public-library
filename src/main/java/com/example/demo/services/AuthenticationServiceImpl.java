@@ -51,9 +51,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             stateResponse.setSuccess(false);
             return stateResponse;
         }
-        if(userSessionMap.remove(response) != null)
+        if(userSessionMap.remove(token) != null)
             stateResponse.setSuccess(true);
         else stateResponse.setSuccess(false);
+        for (LoginResponse loginResponse : userSessionMap.values()) {
+            System.out.println("$$$ ");
+        }
         return stateResponse;
 
     }
