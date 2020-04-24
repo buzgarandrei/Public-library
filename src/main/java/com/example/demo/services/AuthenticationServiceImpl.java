@@ -36,6 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(token == null)  return false;
         LoginResponse response = userSessionMap.get(token);
         if(response == null) return false;
+        if(roleToBeVerified == null) return true;
         if(response.getRole() != roleToBeVerified.toString()) return false;
         return true;
     }
@@ -54,9 +55,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(userSessionMap.remove(token) != null)
             stateResponse.setSuccess(true);
         else stateResponse.setSuccess(false);
-        for (LoginResponse loginResponse : userSessionMap.values()) {
-            System.out.println("$$$ ");
-        }
         return stateResponse;
 
     }
