@@ -35,5 +35,5 @@ public interface UserRepository {
 
     List<IssueBookRequest> getIssueHistory(RequestWithId request);
 
-    List<Appointment> getActiveLoans(RequestWithId request) throws ParseException;
+    List<Appointment> getActiveLoans(RequestWithId request);
 }

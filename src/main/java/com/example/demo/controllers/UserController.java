@@ -135,7 +135,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "getActiveLoans")
-    public List<Appointment> getActiveLoans(HttpServletRequest request, @RequestBody RequestWithId id) throws ParseException {
+    public List<Appointment> getActiveLoans(HttpServletRequest request, @RequestBody RequestWithId id) {
         boolean validated = authenticationService.validateTokenAndRole(request, null);
         if(validated == false) return null;
         return userRepository.getActiveLoans(id);

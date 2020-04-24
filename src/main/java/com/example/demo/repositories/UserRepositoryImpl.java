@@ -258,16 +258,17 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public List<Appointment> getActiveLoans(RequestWithId request) throws ParseException {
-        Query query = entityManager.createQuery(" select  ap.startDate, ap.endDate, ap.book from Appointment ap  where ap.client.id = :id and ap.returned = false ", Tuple.class)
+    public List<Appointment> getActiveLoans(RequestWithId request) {
+        Query query = entityManager.createQuery(" select ap.id, ap.startDate, ap.endDate, ap.book from Appointment ap  where ap.client.id = :id and ap.returned = false ", Tuple.class)
                 .setParameter("id", request.getId());
         List<Tuple> queryList = query.getResultList();
         List<Appointment> appointmentsOfAUser = new ArrayList<>();
         for (Tuple tuple : queryList) {
             Appointment app = new Appointment();
-            app.setStartDate((Date) tuple.get(0));
-            app.setEndDate((Date) tuple.get(1));
-            app.setBook((Book) tuple.get(2));
+            app.setId((Long) tuple.get(0));
+            app.setStartDate((Date) tuple.get(1));
+            app.setEndDate((Date) tuple.get(2));
+            app.setBook((Book) tuple.get(3));
             app.getBook().setClientList(null);
             appointmentsOfAUser.add(app);
         }
