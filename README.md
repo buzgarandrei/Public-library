@@ -1,6 +1,6 @@
 A back-end that implements a Public Library system, where clients can Search for books, Make Appointments, asks for some books to be seen in the library, return books and get an amount to Pay Back if they return late.
 #
-Bellow is a json copy that, open Postman, look for Import option, and there Paste Row Text. It will generate the http requests of this backend.
+Bellow is a json copy, open Postman, look for Import option, and there Paste Row Text. It will generate the http requests of this backend.
 #
 {
 	"info": {
